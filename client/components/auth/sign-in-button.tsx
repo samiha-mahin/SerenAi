@@ -1,0 +1,20 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
+interface SignInButtonProps {
+  className?: string;
+}
+
+export function SignInButton({ className }: SignInButtonProps) {
+  return (
+    <Button
+      asChild
+      variant="ghost" // ghost makes it behave like text
+      className={`bg-[#8BD3E6] hover:bg-[#5bafc7] text-white hover:text-white ${className}`}
+    >
+      <Link href="/login">Sign In</Link>
+    </Button>
+  );
+}

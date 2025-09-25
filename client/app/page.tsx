@@ -206,7 +206,7 @@ export default function home() {
         <div className="max-w-6xl mx-auto">
           <motion.div className="text-center mb-16 space-y-4">
             <h2 className="text-3xl font-bold text-[#5bafc7] hover:text-[#8BD3E6] transition-colors duration-300">
-              How Aura Helps You
+              How Seren Helps You
             </h2>
             <p className="max-w-2xl mx-auto font-medium text-lg text-[#5bafc7] hover:text-[#8BD3E6] transition-colors duration-300">
               Experience a new kind of emotional support, powered by empathetic

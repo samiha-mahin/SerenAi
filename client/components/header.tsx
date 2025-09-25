@@ -63,7 +63,7 @@ export function Header() {
               {isMenuOpen ? (
                 <X className="h-5 w-5" />
               ) : (
-                <Menu className="h-5 w-5" />
+                <Menu className="h-5 w-5 text-[#8BD3E6]" />
               )}
             </Button>
           </div>
@@ -78,7 +78,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-md transition-colors"
+                className="px-4 py-3 text-sm font-medium text-[#8BD3E6] hover:text-[#5bafc7] hover:bg-primary/5 rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.label}

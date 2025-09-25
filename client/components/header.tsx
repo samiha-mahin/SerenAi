@@ -28,7 +28,7 @@ export function Header() {
             <span className="font-semibold text-[#8BD3E6] bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-lg">
               SerenAi
             </span>
-            <span className="text-xs text-[#5bafc7] dark:text-muted-foreground">
+            <span className="text-xs text-[#5bafc7]">
               Your mental health Companion
             </span>
           </div>
@@ -42,10 +42,10 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className="px-4 py-2 text-sm font-medium text-[#8BD3E6] 
-                hover:text-[#5bafc7] relative group transition-colors"
+                hover:text-[#5bafc7] relative group transition-[#5bafc7]"
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 bg-[#8BD3E6] w-full h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
+                <span className="absolute bottom-0 left-0 bg-[#5bafc7] w-full h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
               </Link>
             ))}
           </nav>

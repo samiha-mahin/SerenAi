@@ -31,10 +31,10 @@ export default function LoginPage() {
       <Container className="flex flex-col items-center justify-center w-full">
         <Card className="w-full md:w-5/12 max-w-2xl p-8 md:p-10 rounded-3xl shadow-2xl border border-primary/10 bg-card/90 backdrop-blur-lg mt-12">
           <div className="mb-6 text-center">
-            <h1 className="text-2xl md:text-3xl font-extrabold mb-1 tracking-tight text-[#5bafc7] hover:text-[#8BD3E6] transition-colors duration-300">
+            <h1 className="text-2xl md:text-3xl font-bold mb-1 tracking-tight text-[#5bafc7] hover:text-[#8BD3E6] transition-colors duration-300">
               Sign In
             </h1>
-            <p className="text-base font-medium text-[#5bafc7] hover:text-[#8BD3E6] transition-colors duration-300">
+            <p className="font-medium text-[#5bafc7] hover:text-[#8BD3E6] transition-colors duration-300">
               Welcome back! Please sign in to continue your journey.
             </p>
           </div>
@@ -92,14 +92,14 @@ export default function LoginPage() {
               </span>
               <Link
                 href="/signup"
-                className="text-[#5bafc7] font-semibold underline hover:text-[#8BD3E6] transition-colors duration-300"
+                className="text-blue-500 font-semibold underline transition-colors duration-300"
               >
                 Sign up
               </Link>
               <span className="text-[#5bafc7] hover:text-[#8BD3E6] transition-colors duration-300">·</span>
               <Link
                 href="/forgot-password"
-                className="text-[#5bafc7] underline hover:text-[#8BD3E6] transition-colors duration-300"
+                className="text-blue-500 underline  transition-colors duration-300"
               >
                 Forgot password?
               </Link>

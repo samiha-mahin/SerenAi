@@ -4,13 +4,14 @@ import { Container } from "@/components/ui/container";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Bell, MessageSquare, Sparkles } from "lucide-react";
+import { ArrowRight, Bell, Heart, MessageSquare, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
   const router = useRouter();
+  const [showMoodModal, setShowMoodModal] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -99,6 +100,27 @@ export default function DashboardPage() {
                         <ArrowRight className="w-5 h-5 text-white" />
                       </div>
                     </Button>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "flex flex-col h-[120px] px-4 py-3 group/mood border-[#8BD3E6] hover:border-[#5bafc7]",
+                          "justify-center items-center text-center hover:bg-white",
+                          "transition-all duration-200 group-hover:translate-y-[-2px]"
+                        )}
+                        onClick={() => setShowMoodModal(true)}
+                      >
+                        <div className="w-10 h-10 rounded-full bg-rose-500/10 flex items-center justify-center mb-2">
+                          <Heart className="w-5 h-5 text-rose-500" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-[#8BD3E6]">Track Mood</div>
+                          <div className="text-xs text-[#5bafc7] mt-0.5">
+                            How are you feeling?
+                          </div>
+                        </div>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>

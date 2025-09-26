@@ -125,7 +125,7 @@ export default function home() {
               of Mind
             </span>
           </h1>
-          <p className="max-w-[600px] mx-auto text-[#5bafc7] md:text-lg leading-relaxed tracking-wide">
+          <p className="max-w-[600px] mx-auto dark:text-[#d1f5ff]  text-[#5bafc7] md:text-lg leading-relaxed tracking-wide">
             Experience a new way of emotional support. Our AI companion is here
             to listen, understand, and guide you through life's journey.
           </p>
@@ -208,7 +208,7 @@ export default function home() {
             <h2 className="text-3xl font-bold text-[#5bafc7] hover:text-[#8BD3E6] transition-colors duration-300">
               How Seren Helps You
             </h2>
-            <p className="max-w-2xl mx-auto font-medium text-lg text-[#5bafc7] hover:text-[#8BD3E6] transition-colors duration-300">
+            <p className="max-w-2xl mx-auto font-medium text-lg dark:text-[#d1f5ff]  text-[#5bafc7] hover:text-[#8BD3E6] transition-colors duration-300">
               Experience a new kind of emotional support, powered by empathetic
               AI
             </p>
@@ -232,13 +232,13 @@ export default function home() {
                       <div className="p-2 rounded-xl bg-primary/10 dark:bg-primary/20 group-hover:bg-primary/20 dark:group-hover:bg-primary/30 transition-colors duration-300">
                         <feature.icon className="w-5 h-5 text-[#5bafc7] transition-colors duration-300" />
                       </div>
-                      <h3 className="font-semibold tracking-tight text-[#5bafc7]  transition-colors duration-300">
+                      <h3 className="font-semibold tracking-tight text-[#5bafc7]    transition-colors duration-300">
                         {feature.title}
                       </h3>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm leading-relaxed text-[#5bafc7] transition-colors duration-300">
+                    <p className="text-sm leading-relaxed text-[#5bafc7] dark:text-[#d1f5ff] transition-colors duration-300">
                       {feature.description}
                     </p>
                   </CardContent>

@@ -4,14 +4,24 @@ import { Container } from "@/components/ui/container";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Bell, Heart, MessageSquare, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  Bell,
+  BrainCircuit,
+  Heart,
+  MessageSquare,
+  Sparkles,
+} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { AnxietyGames } from "@/components/games/anxiety-games";
 
 export default function DashboardPage() {
   const router = useRouter();
   const [showMoodModal, setShowMoodModal] = useState(false);
+  const [showActivityLogger, setShowActivityLogger] = useState(false);
+
   const [currentTime, setCurrentTime] = useState(new Date());
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -23,6 +33,9 @@ export default function DashboardPage() {
     router.push("/therapy/new");
   };
 
+  const handleAICheckIn = () => {
+    setShowActivityLogger(true);
+  };
   return (
     <div className="min-h-screen bg-background">
       <Container className="pt-20 pb-8 space-y-6">
@@ -104,7 +117,7 @@ export default function DashboardPage() {
                       <Button
                         variant="outline"
                         className={cn(
-                          "flex flex-col h-[120px] px-4 py-3 group/mood border-[#8BD3E6] hover:border-[#5bafc7]",
+                          "flex flex-col h-[120px] px-4 py-3 group/mood border-[#8BD3E6] hover:border-[#5bafc7] dark:hover:border-[#5bafc7]",
                           "justify-center items-center text-center hover:bg-white",
                           "transition-all duration-200 group-hover:translate-y-[-2px]"
                         )}
@@ -114,9 +127,30 @@ export default function DashboardPage() {
                           <Heart className="w-5 h-5 text-rose-500" />
                         </div>
                         <div>
-                          <div className="font-medium text-[#8BD3E6]">Track Mood</div>
+                          <div className="font-medium text-[#8BD3E6]">
+                            Track Mood
+                          </div>
                           <div className="text-xs text-[#5bafc7] mt-0.5">
                             How are you feeling?
+                          </div>
+                        </div>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "flex flex-col h-[120px] px-4 py-3 group/mood border-[#8BD3E6] hover:border-[#5bafc7] dark:hover:border-[#5bafc7]",
+                          "justify-center items-center text-center hover:bg-white",
+                          "transition-all duration-200 group-hover:translate-y-[-2px]"
+                        )}
+                        onClick={handleAICheckIn}
+                      >
+                        <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center mb-2">
+                          <BrainCircuit className="w-5 h-5 text-blue-500" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-sm">Check-in</div>
+                          <div className="text-xs text-muted-foreground mt-0.5">
+                            Quick wellness check
                           </div>
                         </div>
                       </Button>
@@ -125,6 +159,7 @@ export default function DashboardPage() {
                 </div>
               </CardContent>
             </Card>
+            <AnxietyGames/>
           </div>
         </div>
       </Container>

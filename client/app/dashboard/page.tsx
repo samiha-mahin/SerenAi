@@ -64,40 +64,41 @@ export default function DashboardPage() {
                       <Sparkles className="w-5 h-5 text-[#5bafc7]" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#44889b] dark:text-[#d1f5ff] text-lg">Quick Actions</h3>
+                      <h3 className="font-semibold text-[#44889b] dark:text-[#d1f5ff] text-lg">
+                        Quick Actions
+                      </h3>
                       <p className="text-sm text-[#5bafc7]">
                         Start your wellness journey
                       </p>
                     </div>
                   </div>
                   <div className="grid gap-3">
-                     <Button
-  className={cn(
-    "w-full justify-between items-center p-6 h-auto group/button",
-    // Custom theme
-    "bg-gradient-to-r from-[#8BD3E6] to-[#5bafc7] hover:from-[#5bafc7] hover:to-[#8BD3E6]",
-    "rounded-xl shadow-md transition-all duration-200 group-hover:translate-y-[-2px]"
-  )}
-  onClick={handleStartTherapy}
->
-  <div className="flex items-center gap-3">
-    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-      <MessageSquare className="w-4 h-4 text-white" />
-    </div>
-    <div className="text-left">
-      <div className="font-semibold text-white dark:text-[#3e7a8b]">
-        Start Therapy
-      </div>
-      <div className="text-xs text-white/80 dark:text-[#3e7a8b]">
-        Begin a new session
-      </div>
-    </div>
-  </div>
-  <div className="opacity-0 group-hover/button:opacity-100 transition-opacity">
-    <ArrowRight className="w-5 h-5 text-white" />
-  </div>
-</Button>
-
+                    <Button
+                      className={cn(
+                        "w-full justify-between items-center p-6 h-auto group/button",
+                        // Custom theme
+                        "bg-gradient-to-r from-[#8BD3E6] to-[#5bafc7] hover:from-[#5bafc7] hover:to-[#8BD3E6]",
+                        "rounded-xl shadow-md transition-all duration-200 group-hover:translate-y-[-2px]"
+                      )}
+                      onClick={handleStartTherapy}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                          <MessageSquare className="w-4 h-4 text-white" />
+                        </div>
+                        <div className="text-left">
+                          <div className="font-semibold text-white dark:text-[#3e7a8b]">
+                            Start Therapy
+                          </div>
+                          <div className="text-xs text-white/80 dark:text-[#3e7a8b]">
+                            Begin a new session
+                          </div>
+                        </div>
+                      </div>
+                      <div className="opacity-0 group-hover/button:opacity-100 transition-opacity">
+                        <ArrowRight className="w-5 h-5 text-white" />
+                      </div>
+                    </Button>
                   </div>
                 </div>
               </CardContent>

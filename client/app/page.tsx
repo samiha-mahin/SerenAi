@@ -118,7 +118,7 @@ export default function home() {
           {/* Enhanced main heading with smoother gradient */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-plus-jakarta tracking-tight">
             <span className="inline-block bg-gradient-to-r from-[#8BD3E6] to-[#5bafc7] bg-clip-text text-transparent">
-              Find Peace
+              Find The Peace
             </span>
             <br />
             <span className="inline-block mt-2 bg-gradient-to-r from-[#8BD3E6] to-[#5bafc7] bg-clip-text text-transparent">

@@ -136,7 +136,7 @@ export const AnxietyGames = () => {
         <Dialog open={showGame} onOpenChange={setShowGame}>
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
-              <DialogTitle>{games.find((g) => g.id === selectedGame)?.title}</DialogTitle>
+              <DialogTitle className="text-[#5bafc7]">{games.find((g) => g.id === selectedGame)?.title}</DialogTitle>
             </DialogHeader>
             {renderGame()}
           </DialogContent>

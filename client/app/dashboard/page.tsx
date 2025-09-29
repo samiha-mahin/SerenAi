@@ -16,11 +16,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { AnxietyGames } from "@/components/games/anxiety-games";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { saveMoodData } from "@/lib/static-dashboard-data";
+import { MoodForm } from "@/components/mood/mood-form";
 
 export default function DashboardPage() {
   const router = useRouter();
   const [showMoodModal, setShowMoodModal] = useState(false);
   const [showActivityLogger, setShowActivityLogger] = useState(false);
+  const [isSavingMood, setIsSavingMood] = useState(false);
 
   const [currentTime, setCurrentTime] = useState(new Date());
   useEffect(() => {
@@ -36,6 +40,23 @@ export default function DashboardPage() {
   const handleAICheckIn = () => {
     setShowActivityLogger(true);
   };
+
+  const handleMoodSubmit = async (data: { moodScore: number }) => {
+    setIsSavingMood(true);
+    try {
+      await saveMoodData({
+        userId: "default-user",
+        mood: data.moodScore,
+        note: "",
+      });
+      setShowMoodModal(false);
+    } catch (error) {
+      console.error("Error saving mood:", error);
+    } finally {
+      setIsSavingMood(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Container className="pt-20 pb-8 space-y-6">
@@ -148,8 +169,8 @@ export default function DashboardPage() {
                           <BrainCircuit className="w-5 h-5 text-blue-500" />
                         </div>
                         <div>
-                          <div className="font-medium text-sm">Check-in</div>
-                          <div className="text-xs text-muted-foreground mt-0.5">
+                          <div className="font-medium text-sm text-[#8BD3E6]">Check-in</div>
+                          <div className="text-xs text-[#5bafc7] mt-0.5">
                             Quick wellness check
                           </div>
                         </div>
@@ -161,8 +182,20 @@ export default function DashboardPage() {
             </Card>
             <AnxietyGames/>
           </div>
+
         </div>
       </Container>
+      <Dialog open={showMoodModal} onOpenChange={setShowMoodModal}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="text-[#5bafc7]">How are you feeling?</DialogTitle>
+            <DialogDescription>
+              Move the slider to track your current mood
+            </DialogDescription>
+          </DialogHeader>
+          <MoodForm onSuccess={() => setShowMoodModal(false)} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

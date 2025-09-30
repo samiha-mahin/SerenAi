@@ -19,6 +19,7 @@ import { AnxietyGames } from "@/components/games/anxiety-games";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { saveMoodData } from "@/lib/static-dashboard-data";
 import { MoodForm } from "@/components/mood/mood-form";
+import { ActivityLogger } from "@/components/activities/activity-logger";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -37,10 +38,6 @@ export default function DashboardPage() {
     router.push("/therapy/new");
   };
 
-  const handleAICheckIn = () => {
-    setShowActivityLogger(true);
-  };
-
   const handleMoodSubmit = async (data: { moodScore: number }) => {
     setIsSavingMood(true);
     try {
@@ -55,6 +52,10 @@ export default function DashboardPage() {
     } finally {
       setIsSavingMood(false);
     }
+  };
+
+  const handleAICheckIn = () => {
+    setShowActivityLogger(true);
   };
 
   return (
@@ -196,6 +197,12 @@ export default function DashboardPage() {
           <MoodForm onSuccess={() => setShowMoodModal(false)} />
         </DialogContent>
       </Dialog>
+
+      {/* activity logger */}
+      <ActivityLogger
+        open={showActivityLogger}
+        onOpenChange={setShowActivityLogger}
+      />
     </div>
   );
 }

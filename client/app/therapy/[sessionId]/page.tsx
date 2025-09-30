@@ -140,7 +140,7 @@ export default function TherapyPage() {
                       className="absolute inset-0 bg-[#8BD3E6]/20 blur-2xl rounded-full"
                       initial="initial"
                       animate="animate"
-                      variants={glowAnimation}
+                      variants={glowAnimation as any}
                     />
                     <div className="relative flex items-center gap-2 text-2xl font-semibold">
                       <Sparkles className="w-6 h-6 text-[#8BD3E6]" />

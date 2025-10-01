@@ -1,14 +1,37 @@
 import express from "express";
+import dotenv from "dotenv";
 import { serve } from "inngest/express";
 import { inngest } from "./inngest/index";
 import {functions as IngestFunctions} from "./inngest/functions";
+import { connectDB } from "./utils/db";
+import { logger } from "./utils/logger";
+
+
+dotenv.config();
 
 const app = express();
-// Important: ensure you add JSON middleware to process incoming JSON POST payloads.
+
 app.use(express.json());
-// Set up the "/api/inngest" (recommended) routes with the serve handler
+
 app.use("/api/inngest", serve({ client: inngest, functions:IngestFunctions}));
 
-app.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
-});
+const startServer = async () => {
+  try {
+    // Connect to MongoDB first
+    await connectDB();
+
+    // Then start the server
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      logger.info(`Server is running on port ${PORT}`);
+      logger.info(
+        `Inngest endpoint available at http://localhost:${PORT}/api/inngest`
+      );
+    });
+  } catch (error) {
+    logger.error("Failed to start server:", error);
+    process.exit(1);
+  }
+};
+
+startServer();

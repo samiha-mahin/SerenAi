@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { logger } from "./logger";
 
-
 export const connectDB = async () => {
   const MONGODB_URI = process.env.MONGO_URI || "" ;
   try {

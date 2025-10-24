@@ -38,14 +38,28 @@ export const login = async (req: Request, res: Response) => {
         if (!email || !password) {
             return res.status(400).json({message: "Email and password are required"})
         }
+
         const user = await User.findOne({email});
         if(!user){
             return res.status(401).json({message: "Invalid email or password"}); 
         }
+
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
         return res.status(401).json({ message: "Invalid email or password." });
        }
+
+       const token = jwt.sign(
+        { userId: user._id},
+        process.env.JWT_SECRET || "",
+        { expiresIn: "24h" }
+       );
+
+       const expiresAt = new Date();
+       expiresAt.setHours(expiresAt.getHours() + 24 );
+
+       
+
     } catch (error) {
         
     }

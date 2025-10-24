@@ -58,9 +58,24 @@ export const login = async (req: Request, res: Response) => {
        const expiresAt = new Date();
        expiresAt.setHours(expiresAt.getHours() + 24 );
 
-       
+       const session = new Session({
+        userId: user._id,
+        token,
+        expiresAt,
+        deviceInfo: req.headers['user-agent'] || "Unknown"
+       });
+       await session.save();
 
+       res.json({
+        user: {
+            _id : user._id,
+            name: user.name,
+            email: user.email
+        },
+        token,
+        message: "Login successful"
+       });
     } catch (error) {
-        
+        res.status(500).json({ message: "Server error", error });
     }
 }

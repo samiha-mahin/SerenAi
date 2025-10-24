@@ -79,3 +79,17 @@ export const login = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Server error", error });
     }
 }
+
+export const logout = async (req: Request, res: Response) => {
+    try {
+        const token = req.header("Authorization")?.replace("Bearer ", "");
+        if (token) {
+            await Session.deleteOne({ token });
+        }else {
+            console.log("No token provided");
+        }
+        res.json({ message: "Logout successful" });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+}

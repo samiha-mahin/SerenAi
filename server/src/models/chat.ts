@@ -20,3 +20,17 @@ export interface IChat extends Document {
   updatedAt: Date;
 }
 
+const chatMessageSchema = new Schema<IChatMessage>({
+    role:{
+        type: String,
+        enum: ["user", "assistant"],
+        required: true
+    },
+    content: { type: String, required: true },
+    timestamp: { type: Date, default: Date.now },
+    metadata:{
+        technique: String,
+        goal: String,
+        progress: [Schema.Types.Mixed],
+  }
+});

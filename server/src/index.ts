@@ -15,7 +15,10 @@ dotenv.config();
 
 const app = express();
 
-app.use(express.json());
+app.use(helmet()); // Security headers
+app.use(cors()); // Enable CORS
+app.use(express.json()); // Parse JSON bodies
+app.use(morgan("dev")); // HTTP request logger
 
 app.use("/api/inngest", serve({ client: inngest, functions:IngestFunctions}));
 

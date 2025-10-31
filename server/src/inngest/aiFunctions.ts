@@ -29,6 +29,13 @@ export const processChatMessage = inngest.createFunction(
         goals = [],
         systemPrompt,
       } = event.data;
+
+       logger.info("Processing chat message:", {
+        message,
+        historyLength: history?.length,
+      }); //This line prints the user's message and the size of chat history to logs, so you can monitor and debug your app safely.
+
+      // Analyze the message using Gemini
     } catch (error) {}
   }
 );

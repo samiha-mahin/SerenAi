@@ -4,7 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { serve } from "inngest/express";
-import { inngest } from "./inngest/index";
+import { inngest } from "./inngest/client";
 import {functions as IngestFunctions} from "./inngest/functions";
 import { connectDB } from "./utils/db";
 import { logger } from "./utils/logger";

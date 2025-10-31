@@ -1,4 +1,4 @@
-import { inngest } from "./index";
+import { inngest } from "./client";
 
 const helloWorld = inngest.createFunction(
   { id: "hello-world" },

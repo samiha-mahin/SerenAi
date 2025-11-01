@@ -73,6 +73,22 @@ export const processChatMessage = inngest.createFunction(
           };
         }
       });
+
+      // Update memory based on analysis
+      const updatedMemory = await step.run("update-memory", async () => {
+        if(analysis.emotionalState){
+            memory.userProfile.emotionalState.push(analysis.emotionalState)
+        }
+        if(analysis.themes){
+           memory.sessionContext.conversationThemes.push(...analysis.themes)    
+        }
+        if(analysis.riskLevel){
+            memory.userProfile.riskLevel = analysis.riskLevel
+        }
+        return memory;
+      });
+      
+     // If high risk is detected, trigger an alert
     } catch (error) {}
   }
 );

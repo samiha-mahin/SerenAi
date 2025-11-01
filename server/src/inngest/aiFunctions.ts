@@ -30,12 +30,49 @@ export const processChatMessage = inngest.createFunction(
         systemPrompt,
       } = event.data;
 
-       logger.info("Processing chat message:", {
+      logger.info("Processing chat message:", {
         message,
         historyLength: history?.length,
       }); //This line prints the user's message and the size of chat history to logs, so you can monitor and debug your app safely.
 
       // Analyze the message using Gemini
+      const analysis = await step.run("analyze-message", async () => {
+        try {
+          const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+          const prompt = `Analyze this therapy message and provide insights. Return ONLY a valid JSON object with no markdown formatting or additional text.
+             Message: ${message}
+             Context: ${JSON.stringify({ memory, goals })}
+             Required JSON Structure:
+             {
+            "emotionalState": "string",
+            "themes": ["string"],
+            "riskLevel": number,
+            "recommendedApproach": "string",
+            "progressIndicators": ["string"]
+            }`;
+          const result = await model.generateContent(prompt);
+          const response = await result.response;
+          const text = response.text().trim();
+
+          logger.info("Received analysis from Gemini:", { text });
+
+          // Clean the response text to ensure it's valid JSON
+          const cleanText = text.replace(/```json\n|\n```/g, "").trim();
+          const parsedAnalysis = JSON.parse(cleanText);
+          logger.info("Successfully parsed analysis:", parsedAnalysis)
+          return parsedAnalysis;
+        } catch (error) {
+            logger.error("Error in message analysis:", { error, message });
+          // Return a default analysis instead of throwing
+          return {
+            emotionalState: "neutral",
+            themes: [],
+            riskLevel: 0,
+            recommendedApproach: "supportive",
+            progressIndicators: [],
+          };
+        }
+      });
     } catch (error) {}
   }
 );

@@ -98,6 +98,35 @@ export const processChatMessage = inngest.createFunction(
         });
       }
       // Generate therapeutic response
+      const response = await step.run("generate-response", async () => {
+        try {
+          const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+          const prompt = `${systemPrompt}
+          Based on the following context, generate a therapeutic response:
+          Message: ${message}
+          Analysis: ${JSON.stringify(analysis)}
+          Memory: ${JSON.stringify(memory)}
+          Goals: ${JSON.stringify(goals)}
+
+           Provide a response that:
+          1. Addresses the immediate emotional needs
+          2. Uses appropriate therapeutic techniques
+          3. Shows empathy and understanding
+          4. Maintains professional boundaries
+          5. Considers safety and well-being`;
+
+          const result = await model.generateContent(prompt);
+          const responseText = result.response.text().trim();
+
+          logger.info("Generated therapeutic response:", { responseText });
+          return responseText;
+        } catch (error) {
+          logger.error("Error generating response:", { error, message });
+          // Return a default response instead of throwing
+          return "I'm here to support you. Could you tell me more about what's on your mind?";
+        }
+      });
     } catch (error) {}
   }
 );

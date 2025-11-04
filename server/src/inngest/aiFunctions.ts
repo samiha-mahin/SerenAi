@@ -127,6 +127,12 @@ export const processChatMessage = inngest.createFunction(
           return "I'm here to support you. Could you tell me more about what's on your mind?";
         }
       });
+      // Return the response in the expected format
+      return {
+        response,
+        analysis,
+        updatedMemory,
+      };
     } catch (error) {}
   }
 );

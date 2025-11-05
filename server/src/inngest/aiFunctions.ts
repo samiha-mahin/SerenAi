@@ -133,6 +133,11 @@ export const processChatMessage = inngest.createFunction(
         analysis,
         updatedMemory,
       };
-    } catch (error) {}
+    } catch (error) {
+        logger.error("Error in chat message processing:", {
+        error,
+        message: event.data.message,
+      });
+    }
   }
 );

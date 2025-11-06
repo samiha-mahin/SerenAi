@@ -139,5 +139,6 @@ export const processChatMessage = inngest.createFunction(
         message: event.data.message,
       });
     }
+    // Return a default response instead of throwing
   }
 );

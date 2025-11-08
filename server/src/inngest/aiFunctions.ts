@@ -140,5 +140,6 @@ export const processChatMessage = inngest.createFunction(
       });
     }
     // Return a default response instead of throwing
+    return{}
   }
 );

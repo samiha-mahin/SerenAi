@@ -140,6 +140,9 @@ export const processChatMessage = inngest.createFunction(
       });
     }
     // Return a default response instead of throwing
-    return{}
+    return{
+         response:
+          "I'm here to support you. Could you tell me more about what's on your mind?",
+    }
   }
 );

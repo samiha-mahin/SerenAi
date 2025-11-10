@@ -134,16 +134,23 @@ export const processChatMessage = inngest.createFunction(
         updatedMemory,
       };
     } catch (error) {
-        logger.error("Error in chat message processing:", {
+      logger.error("Error in chat message processing:", {
         error,
         message: event.data.message,
       });
     }
     // Return a default response instead of throwing
-    return{
-         response:
-          "I'm here to support you. Could you tell me more about what's on your mind?",
-          analysis: {}
-    }
+    return {
+      response:
+        "I'm here to support you. Could you tell me more about what's on your mind?",
+      analysis: {
+        emotionalState: "neutral",
+        themes: [],
+        riskLevel: 0,
+        recommendedApproach: "supportive",
+        progressIndicators: [],
+      },
+      updatedMemory : event.data.memory,
+    };
   }
 );

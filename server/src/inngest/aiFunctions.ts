@@ -143,6 +143,7 @@ export const processChatMessage = inngest.createFunction(
     return{
          response:
           "I'm here to support you. Could you tell me more about what's on your mind?",
+          analysis: {}
     }
   }
 );

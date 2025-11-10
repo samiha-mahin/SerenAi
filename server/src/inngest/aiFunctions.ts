@@ -154,3 +154,17 @@ export const processChatMessage = inngest.createFunction(
     };
   }
 );
+ // Function to analyze therapy session content
+export const analyzeTherapySession = inngest.createFunction (
+    { id: "analyze-therapy-session" },
+  { event: "therapy/session.created" },
+  async ({ event, step }) => {
+    try {
+        const sessionContent = await step.run("get-session-content", async ()=>{
+            return event.data.notes || event.data.transcript ;
+        });
+    } catch (error) {
+        
+    }
+  }
+)

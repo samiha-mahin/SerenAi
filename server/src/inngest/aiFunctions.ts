@@ -163,6 +163,8 @@ export const analyzeTherapySession = inngest.createFunction (
         const sessionContent = await step.run("get-session-content", async ()=>{
             return event.data.notes || event.data.transcript ;
         });
+
+         // Analyze the session using Gemini
     } catch (error) {
         
     }

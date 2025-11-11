@@ -150,23 +150,34 @@ export const processChatMessage = inngest.createFunction(
         recommendedApproach: "supportive",
         progressIndicators: [],
       },
-      updatedMemory : event.data.memory,
+      updatedMemory: event.data.memory,
     };
   }
 );
- // Function to analyze therapy session content
-export const analyzeTherapySession = inngest.createFunction (
-    { id: "analyze-therapy-session" },
+// Function to analyze therapy session content
+export const analyzeTherapySession = inngest.createFunction(
+  { id: "analyze-therapy-session" },
   { event: "therapy/session.created" },
   async ({ event, step }) => {
     try {
-        const sessionContent = await step.run("get-session-content", async ()=>{
-            return event.data.notes || event.data.transcript ;
-        });
+      const sessionContent = await step.run("get-session-content", async () => {
+        return event.data.notes || event.data.transcript;
+      }); //This part takes the text of the therapy session,either from notes or from a transcript so the AI can read and analyze it later.
+      // Analyze the session using Gemini
+      const analysis = await step.run("analyze-with-gemini", async () => {
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-         // Analyze the session using Gemini
-    } catch (error) {
+        const prompt = `Analyze this therapy session and provide insights:
+            Session Content: ${sessionContent}
+             Please provide:
+        1. Key themes and topics discussed
+        2. Emotional state analysis
+        3. Potential areas of concern
+        4. Recommendations for follow-up
+        5. Progress indicators
         
-    }
+        Format the response as a JSON object.`;
+      });
+    } catch (error) {}
   }
-)
+);

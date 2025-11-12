@@ -177,6 +177,10 @@ export const analyzeTherapySession = inngest.createFunction(
         5. Progress indicators
         
         Format the response as a JSON object.`;
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
       });
     } catch (error) {}
   }

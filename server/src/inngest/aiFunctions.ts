@@ -4,7 +4,7 @@ import { logger } from "../utils/logger";
 import { Session } from "@/models/Session";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-// Function to handle chat message processing
+// Function to handle chat message processing, handles live chat messages between a therapist and a patient.
 export const processChatMessage = inngest.createFunction(
   {
     id: "process-chat-message",
@@ -154,7 +154,7 @@ export const processChatMessage = inngest.createFunction(
     };
   }
 );
-// Function to analyze therapy session content
+// Function to analyze therapy session content, analyzes the whole session once it’s finished.
 export const analyzeTherapySession = inngest.createFunction(
   { id: "analyze-therapy-session" },
   { event: "therapy/session.created" },

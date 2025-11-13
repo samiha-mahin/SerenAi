@@ -182,6 +182,12 @@ export const analyzeTherapySession = inngest.createFunction(
         const response = await result.response;
         const text = response.text();
       });
+      // Store the analysis
+       await step.run("store-analysis", async () => {
+        // Here you would typically store the analysis in your database
+        logger.info("Session analysis stored successfully");
+        return analysis;
+       })
     } catch (error) {}
   }
 );

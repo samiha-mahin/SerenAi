@@ -154,22 +154,25 @@ export const processChatMessage = inngest.createFunction(
     };
   }
 );
-// Function to analyze therapy session content, analyzes the whole session once it’s finished.
+// Function to analyze therapy session content
 export const analyzeTherapySession = inngest.createFunction(
   { id: "analyze-therapy-session" },
   { event: "therapy/session.created" },
   async ({ event, step }) => {
     try {
+      // Get the session content
       const sessionContent = await step.run("get-session-content", async () => {
         return event.data.notes || event.data.transcript;
-      }); //This part takes the text of the therapy session,either from notes or from a transcript so the AI can read and analyze it later.
+      });
+
       // Analyze the session using Gemini
       const analysis = await step.run("analyze-with-gemini", async () => {
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
         const prompt = `Analyze this therapy session and provide insights:
-            Session Content: ${sessionContent}
-             Please provide:
+        Session Content: ${sessionContent}
+        
+        Please provide:
         1. Key themes and topics discussed
         2. Emotional state analysis
         3. Potential areas of concern
@@ -181,13 +184,35 @@ export const analyzeTherapySession = inngest.createFunction(
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
+
+        return JSON.parse(text);
       });
+
       // Store the analysis
-       await step.run("store-analysis", async () => {
+      await step.run("store-analysis", async () => {
         // Here you would typically store the analysis in your database
         logger.info("Session analysis stored successfully");
         return analysis;
-       })
-    } catch (error) {}
+      });
+
+      // If there are concerning indicators, trigger an alert
+      if (analysis.areasOfConcern?.length > 0) {
+        await step.run("trigger-concern-alert", async () => {
+          logger.warn("Concerning indicators detected in session analysis", {
+            sessionId: event.data.sessionId,
+            concerns: analysis.areasOfConcern,
+          });
+          // Add your alert logic here
+        });
+      }
+
+      return {
+        message: "Session analysis completed",
+        analysis,
+      };
+    } catch (error) {
+      logger.error("Error in therapy session analysis:", error);
+      throw error;
+    }
   }
 );

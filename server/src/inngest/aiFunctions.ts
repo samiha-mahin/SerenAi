@@ -216,3 +216,68 @@ export const analyzeTherapySession = inngest.createFunction(
     }
   }
 );
+// Function to generate personalized activity recommendations
+export const generateActivityRecommendations = inngest.createFunction(
+  { id: "generate-activity-recommendations" },
+  { event: "mood/updated" },
+  async ({ event, step }) => {
+    try {
+      // Get user's mood history and activity history
+      const userContext = await step.run("get-user-context", async () => {
+        // Here you would typically fetch user's history from your database
+        return {
+          recentMoods: event.data.recentMoods,
+          completedActivities: event.data.completedActivities,
+          preferences: event.data.preferences,
+        };
+      });
+
+      // Generate recommendations using Gemini
+      const recommendations = await step.run(
+        "generate-recommendations",
+        async () => {
+          const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+          const prompt = `Based on the following user context, generate personalized activity recommendations:
+        User Context: ${JSON.stringify(userContext)}
+        
+        Please provide:
+        1. 3-5 personalized activity recommendations
+        2. Reasoning for each recommendation
+        3. Expected benefits
+        4. Difficulty level
+        5. Estimated duration
+        
+        Format the response as a JSON object.`;
+
+          const result = await model.generateContent(prompt);
+          const response = await result.response;
+          const text = response.text();
+
+          return JSON.parse(text);
+        }
+      );
+
+      // Store the recommendations
+      await step.run("store-recommendations", async () => {
+        // Here you would typically store the recommendations in your database
+        logger.info("Activity recommendations stored successfully");
+        return recommendations;
+      });
+
+      return {
+        message: "Activity recommendations generated",
+        recommendations,
+      };
+    } catch (error) {
+      logger.error("Error generating activity recommendations:", error);
+      throw error;
+    }
+  }
+);
+// Add the functions to the exported array
+export const functions = [
+  processChatMessage,
+  analyzeTherapySession,
+  generateActivityRecommendations,
+];

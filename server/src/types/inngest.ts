@@ -9,3 +9,10 @@ export interface TherapyAgentMemory {
     currentTechnique: string | null;
   };
 }
+export interface MessageAnalysis {
+  emotionalState: string;
+  riskLevel: number;
+  themes: string[];
+  recommendedApproach: string;
+  progressIndicators: string[];
+}

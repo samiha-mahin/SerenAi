@@ -9,6 +9,7 @@ import {functions as IngestFunctions} from "./inngest/functions";
 import { connectDB } from "./utils/db";
 import { logger } from "./utils/logger";
 import authRouter from "./routes/auth";
+import activityRouter from "./routes/activity";
 
 
 dotenv.config();
@@ -23,6 +24,7 @@ app.use(morgan("dev")); // HTTP request logger
 app.use("/api/inngest", serve({ client: inngest, functions:IngestFunctions}));
 
 app.use("/auth", authRouter);
+app.use("/api/activity", activityRouter);
 
 const startServer = async () => {
   try {

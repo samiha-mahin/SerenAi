@@ -22,6 +22,9 @@ export interface InngestResponse<T> {
   id: string;
   data: T;
 }
+//This is a generic wrapper for all Inngest responses.
+//T = payload type
+//id = event or execution ID (for example: { id: "evt_12345", data: { ... } })
 
 export interface InngestMessageData {
   response: string;

@@ -1,4 +1,3 @@
-import { Session } from "./../models/Session";
 import { Request, Response } from "express";
 import { ChatSession, IChatSession } from "../models/ChatSession";
 import { GoogleGenerativeAI } from "@google/generative-ai";

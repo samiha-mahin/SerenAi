@@ -11,6 +11,7 @@ import { logger } from "./utils/logger";
 import authRouter from "./routes/auth";
 import activityRouter from "./routes/activity";
 import chatRouter from "./routes/chat";
+import moodRouter from "./routes/mood";
 
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.use("/api/inngest", serve({ client: inngest, functions:IngestFunctions}));
 
 app.use("/auth", authRouter);
 app.use("/chat", chatRouter);
+app.use("/api/mood", moodRouter);
 app.use("/api/activity", activityRouter);
 
 const startServer = async () => {

@@ -9,7 +9,7 @@ import { InngestSessionResponse, InngestEvent } from "../types/inngest";
 import { Types } from "mongoose";
 
 const genAI = new GoogleGenerativeAI(
-  process.env.GEMINI_API_KEY || "AIzaSyA32lUcx25nxgUTvRRPyw2ylooZioO01FM"
+  process.env.GEMINI_API_KEY || ""
 );
 
 //// Create a new chat session

@@ -8,10 +8,6 @@ import { User } from "../models/User";
 import { InngestSessionResponse, InngestEvent } from "../types/inngest";
 import { Types } from "mongoose";
 
-const genAI = new GoogleGenerativeAI(
-  process.env.GEMINI_API_KEY || ""
-);
-
 //// Create a new chat session
 export const createChatSession = async (req: Request, res: Response) => {
   try {
@@ -54,6 +50,7 @@ export const createChatSession = async (req: Request, res: Response) => {
 
 // Send a message in the chat session
 export const sendMessage = async (req: Request, res: Response) => {
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
   try {
     const { sessionId } = req.params;
     const { message } = req.body;

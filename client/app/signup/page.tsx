@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/container";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Mail, User, Lock } from "lucide-react";
+import { registerUser } from "@/lib/api/auth";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -15,21 +16,25 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
     if (password !== confirmPassword) {
-      alert("Passwords do not match.");
+      setError("Passwords do not match.");
       return;
     }
     setLoading(true);
-
-    // Simulate signup
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await registerUser(name, email, password);
       router.push("/login");
-    }, 500);
+    } catch (err: any) {
+      setError(err.message || "Signup failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -130,7 +135,11 @@ export default function SignupPage() {
                 </div>
               </div>
             </div>
-
+            {error && (
+              <p className="text-red-500 text-base text-center font-medium">
+                {error}
+              </p>
+            )}
             <Button
               className="w-full py-2 text-base rounded-xl font-bold bg-gradient-to-r from-[#5bafc7] to-[#8BD3E6] shadow-md hover:from-[#8BD3E6] hover:to-[#5bafc7]"
               size="lg"

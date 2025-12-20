@@ -58,12 +58,11 @@ export function Header() {
             {isAuthenticated ? (
                 <>
                   <Button
-                    asChild
-                    className="hidden md:flex gap-2 bg-primary/90 hover:bg-primary"
+                    variant="outline"
+                    className="flex text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <Link href="/dashboard">
-                      <MessageCircle className="w-4 h-4 mr-1 text-[#8BD3E6]" />
-                      Start Chat
+                      Dashboard
                     </Link>
                   </Button>
                   <Button

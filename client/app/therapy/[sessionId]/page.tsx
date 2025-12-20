@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import {
   Send,
   Bot,
@@ -47,6 +48,8 @@ const glowAnimation = {
 };
 
 export default function TherapyPage() {
+    const params = useParams();
+  const router = useRouter();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);

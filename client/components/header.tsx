@@ -1,13 +1,15 @@
 "use client";
 
-import { AudioWaveform, Menu, X } from "lucide-react";
+import { AudioWaveform, LogOut, Menu, MessageCircle, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
 import { SignInButton } from "./auth/sign-in-button";
 import { Button } from "./ui/button";
+import { useSession } from "@/lib/contexts/session-context";
 
 export function Header() {
+  const { isAuthenticated, logout, user } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
@@ -53,7 +55,29 @@ export function Header() {
           {/* Actions */}
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <SignInButton />
+            {isAuthenticated ? (
+                <>
+                  <Button
+                    asChild
+                    className="hidden md:flex gap-2 bg-primary/90 hover:bg-primary"
+                  >
+                    <Link href="/dashboard">
+                      <MessageCircle className="w-4 h-4 mr-1 text-[#8BD3E6]" />
+                      Start Chat
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={logout}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <LogOut className="w-4 h-4 mr-2 text-[#8BD3E6]" />
+                    Sign out
+                  </Button>
+                </>
+              ) : (
+                <SignInButton />
+              )}
             <Button
               variant="ghost"
               size="icon"

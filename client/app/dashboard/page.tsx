@@ -20,6 +20,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { saveMoodData } from "@/lib/static-dashboard-data";
 import { MoodForm } from "@/components/mood/mood-form";
 import { ActivityLogger } from "@/components/activities/activity-logger";
+import { useSession } from "@/lib/contexts/session-context";
+import { getAllChatSessions } from "@/lib/api/chat";
 
 export default function DashboardPage() {
   const router = useRouter();

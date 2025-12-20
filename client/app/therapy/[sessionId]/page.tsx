@@ -187,13 +187,14 @@ export default function TherapyPage() {
 
   // ------------------ UI ------------------
   return (
+    <div className="pt-20">
     <div className="relative max-w-7xl mx-auto px-4">
-      <div className="flex h-[calc(100vh-4rem)] mt-4 mb-10 gap-6">
+      <div className="flex gap-6 mb-10" style={{ height: 'calc(80vh - 4rem)' }}>
 
         {/* Sidebar */}
         <div className="w-80 flex flex-col border-r bg-[#8BD3E6]/10">
           <div className="p-4 border-b flex justify-between items-center">
-            <h2 className="font-semibold">Chat Sessions</h2>
+            <h2 className="font-semibold text-[#8BD3E6]">Chat Sessions</h2>
             <button onClick={handleNewSession}>
               <PlusCircle className="w-5 h-5 text-[#5bafc7]" />
             </button>
@@ -223,7 +224,7 @@ export default function TherapyPage() {
           {/* Header */}
           <div className="p-4 border-b flex gap-2 items-center">
             <Bot className="text-[#8BD3E6]" />
-            <h2 className="font-semibold">AI Therapist</h2>
+            <h2 className="font-semibold text-[#8BD3E6]">AI Therapist</h2>
           </div>
 
           {/* Messages */}
@@ -236,7 +237,7 @@ export default function TherapyPage() {
                   animate={{ opacity: 1, y: 0 }}
                   className={cn(
                     "px-6 py-6",
-                    msg.role === "assistant" ? "bg-[#8BD3E6]/10" : "bg-white"
+                    msg.role === "assistant" ? "bg-[#8BD3E6]/10" : ""
                   )}
                 >
                   <div className="flex gap-3">
@@ -288,6 +289,7 @@ export default function TherapyPage() {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 }

@@ -2,28 +2,48 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { loginUser } from "@/lib/api/auth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Lock, Mail } from "lucide-react";
+import { useSession } from "@/lib/contexts/session-context";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { checkSession } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
+    try {
+      const response = await loginUser(email, password);
 
-    // Simulate login
-    setTimeout(() => {
-      setLoading(false);
+      // Store the token in localStorage
+      localStorage.setItem("token", response.token);
+
+      // Update session state
+      await checkSession();
+
+      // Wait for state to update before redirecting
+      await new Promise((resolve) => setTimeout(resolve, 100));
       router.push("/dashboard");
-    }, 500);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Invalid email or password. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -75,6 +95,11 @@ export default function LoginPage() {
                 </div>
               </div>
             </div>
+            {error && (
+              <p className="text-red-500 text-base text-center font-medium">
+                {error}
+              </p>
+            )}
             <Button
               className="w-full py-2 text-base rounded-xl font-bold bg-gradient-to-r from-[#5bafc7] to-[#8BD3E6] shadow-md hover:from-[#8BD3E6] hover:to-[#5bafc7]"
               size="lg"

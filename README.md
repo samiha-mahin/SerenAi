@@ -6,7 +6,7 @@
 
 # AI-Powered Mental Health Support Platform 🧠
 
-A professional, AI-powered mental health platform designed to provide therapy, mood tracking, and interactive mindfulness activities. Built with **Next.js 15**, **React**, **Node.js**, **MongoDB**, and **Google Gemini AI**, this platform offers intelligent, context-aware support for mental well-being.
+A professional, AI-powered mental health platform designed to provide therapy, mood tracking, and interactive mindfulness activities. Built with **Next.js 15**, **Typescript**, **Node.js**, **MongoDB**, and **Google Gemini AI**, this platform offers intelligent, context-aware support for mental well-being.
 
 ---
 
